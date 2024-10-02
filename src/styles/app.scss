@@ -1,0 +1,47 @@
+
+$main-color: palevioletred;
+$border-dark: rgb(130, 56, 81);
+$dark-text: rgb(130, 56, 81);
+footer{
+    background-color: palevioletred;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    justify-content: center;
+    padding: 1.5% 0;
+    position: relative;
+    width: 100%;
+    margin-top: auto;
+    bottom: 0;
+}
+
+main{
+    flex-grow: 1;
+    padding: 20px;
+}
+header{
+    display: flex;
+    align-items: center;
+    border-bottom: 2px $border-dark solid;
+    height: 5rem;
+    h1 {
+        margin-right: 1rem;
+        margin-left: 1rem;
+    }
+
+    .sidebar {
+        margin-left: auto;
+        margin-right: 1rem;
+    }
+
+    .avatar {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
+.prodTitle{
+    margin: auto;
+    font-size: 40px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}

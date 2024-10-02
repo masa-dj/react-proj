@@ -1,0 +1,174 @@
+import { Link } from "react-router-dom";
+import {Card, CardContent, CardMedia, Typography, Button, CardActions, Container, Box} from '@mui/material';
+import Grid from '@mui/material/Grid2';
+
+const products = [
+    {
+        id: '1',
+        category: 'Bag',
+        title: 'Birkin Pink Small',
+        brand: 'HERMES',
+        price: '17000 €',
+        image: "src/images/1.jpg",
+        text: 'OPIS'
+    },
+    {
+        id: '2',
+        category: 'Bag',
+        title: 'Birkin Baby Pink Medium',
+        brand: 'HERMES',
+        price: '18000 €',
+        image: "src/images/2.jpg",
+        text: 'OPIS'
+    },
+    {
+        id: '3',
+        category: 'Bag',
+        title: 'Birkin Hot Pink Big',
+        brand: 'HERMES',
+        price: '37000 €',
+        image: "src/images/3.jpg",
+        text: 'OPIS'
+    },
+    {
+        id: '4',
+        category: 'Bag',
+        title: 'Birkin Cream Medium',
+        brand: 'HERMES',
+        price: '25000 €',
+        image: "src/images/4.jpg",
+        text: 'OPIS'
+    }, ];
+
+function getCard(prod){
+    return(
+        <Grid item xs={12} sm={6} md={4} lg={3} key={prod.id}>
+        <Card sx={{ maxWidth: 200, marginTop: 2}}>
+                <CardMedia
+                    component="img"
+                    height="150"
+                    image={prod.image}
+                    alt="bag"
+                    sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
+                />
+                <CardContent >
+                    <Typography gutterBottom variant="body2" component="div">{prod.category}</Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        {prod.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        {prod.brand}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        {prod.price}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        {prod.text}
+                    </Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Button size="small"  sx={{backgroundColor: 'palevioletred','&:hover': {backgroundColor: 'rgb(130, 56, 81)'}}}>
+                        <Link to = {`/products/${prod.id}`} state={prod}style={{ textDecoration: 'none', color: 'white' }} > Check </Link>
+                    </Button>
+                </CardActions>
+            </Card>
+            </Grid>
+    )
+}
+export function Products(){
+
+    return (
+        //slike se imenuju po id ju i tako se izvlace za path plus info
+        //lista nekih itema makar 2, 3
+        <>
+        <Container sx={{ height: '78vh', marginLeft: 0 }}>
+            <p>Products page</p>
+            <Grid container spacing={2}>
+                {products.map(prod => getCard(prod))}
+            </Grid>
+        </Container>
+        </>
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Box } from "@mui/material"
+import Grid from '@mui/material/Grid2';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import { useParams, useLocation } from "react-router-dom"
+
+
+const ItemPic = styled(Paper)(({ theme }) => ({
+    backgroundColor: '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    height: 300,
+    marginBottom: 20
+}));
+const ItemText = styled(Paper)(({ theme }) => ({
+    backgroundColor: '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'left',
+    height: 300,
+    marginBottom: 20
+}));
+
+export function SingleProduct(){
+    const {id} = useParams()
+    const location=useLocation()
+    const product=location.state
+    console.log(product.image)
+    return (
+        <>
+
+        <Box sx={{ flexGrow: 1, margin: 2 , height: '76vh'}}>
+        <p>This is a single product</p>
+        <Grid container spacing={2}>
+            <Grid size={{ xs: 6, md: 4 }}>
+                <ItemPic>
+                <Box
+                component="img"
+                sx={{
+                height: 300,
+                width: 300,
+                maxHeight: { xs: 350, md: 350 },
+                maxWidth: { xs: 350, md: 350 },
+                padding: 3
+                }}
+                alt={product.title}
+                src={`/${product.image}`}
+            />
+                </ItemPic>
+            </Grid>
+            <Grid size={{ xs: 6, md: 8 }}>
+                <ItemText>
+                    <div>
+                        {product.category}<br />
+                        {product.title}<br />
+                        {product.brand}<br />
+                        {product.price}<br />
+                        {product.text}
+                    </div>
+                </ItemText>
+            </Grid>
+        </Grid>
+        </Box>
+        </>
+    )
+}
